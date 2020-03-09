@@ -1,4 +1,9 @@
 var dataModule = (function() {
+  //SHUFFLE FUNCTION
+
+  //CAPITALIZE FUNCTION
+
+  //ADDRANDOM PUNC FUNTION
   var appData = {
     indicators: {
       testStarted: false,
@@ -19,7 +24,7 @@ var dataModule = (function() {
     },
     words: {
       currentWordIndex: 0,
-      testWoords: [],
+      testWords: [],
       currentWord: {}
     }
   };
@@ -48,7 +53,16 @@ var dataModule = (function() {
     calculateWpm: function() {},
     calculateCpm: function() {},
     calculateAccuracy: function() {},
-    fillListOfTestWords: function(textNumber) {},
+    //fill list with test words
+    fillListOfTestWords: function(textNumber, words) {
+      var results = words.split(" ");
+      if (textNumber == 0) {
+        //SHUFFLE WORDS
+        //CAPITALIZE RANDOM WORDS
+        //ADD A RANDOM PANCTUATION
+      }
+      appData.words.testWords = results;
+    },
     getListOfTestWords: function() {},
     moveToNewWord: function() {},
     updateCurrentWord: function(value) {}

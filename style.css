@@ -37,6 +37,38 @@ body {
   padding: 10px;
   color: rgb(1, 226, 182);
 }
+.keyboard {
+  min-height: 200px;
+  max-height: 300px;
+  background: url("img/keyboard.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.btn {
+  background: rgba(236, 34, 202, 0.5) !important;
+}
+.btn:focus,
+.btn:active,
+.btn:hover {
+  background: white !important;
+}
+.scoreDown,
+.scoreUp {
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 12px;
+}
+.scoreDown {
+  background: mediumvioletred;
+}
+.scoreUp {
+  background: greenyellow;
+  color: black;
+}
+.modal {
+  color: black;
+}
 /*
   ##Device = Desktops
 */
