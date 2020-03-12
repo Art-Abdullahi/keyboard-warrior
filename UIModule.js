@@ -1,28 +1,50 @@
-var UIModule = function() {
+var UIModule = (function() {
   var DOMElements = {
     //indicators - test control
-    timeLeft, //Html element displaying time left
+    timeLeft: document.getElementById("timeLeft"), //Html element displaying time left
     //test results
-    wpm,
-    wpmChange,
-    cpm,
-    cpmChamge,
-    accuracy,
-    accuracyChange,
+    wpm: document.getElementById("wpm"),
+    wpmChange: document.getElementById("wpmChange"),
+    cpm: document.getElementById("cpm"),
+    cpmChamge: document.getElementById("cpmChange"),
+    accuracy: document.getElementById("accuracy"),
+    accuracyChange: document.getElementById("accuracyChange"),
     //user input
-    textInput,
-    nameInput,
+    textInput: document.querySelector("#input"),
+    nameInput: document.querySelector(".form-group"),
     //test words
-    content,
-    activeWord,
+    content: document.getElementById("content"),
+    activeWord: "",
     //modal
-    modal
+    modal: $("myModal")
+  };
+  var splitArray = function(string) {
+    return string.split("");
+  };
+  var addSpace = function(array) {
+    array.push(" ");
+    return array;
+  };
+  var addSpanTags = function(array) {
+    return array.map(function(currentCharacter) {
+      return "<span>" + currentCharacter + "</span>";
+    });
+  };
+  var addWordSpanTags = function(array) {
+    array.push("</span>");
+    array.unshift("<span>");
+    return array;
+  };
+  var joinEachWord = function(array) {
+    return array.join("");
   };
   return {
     //get DomElements
     getDomeElements: function() {},
     //indicators -Test Control
-    updateTimeLeft: function() {},
+    updateTimeLeft: function(x) {
+      DOMElements.timeLeft.innerHTML = x;
+    },
     //results
     updateResults: function() {},
     fillModal: function() {},
@@ -35,10 +57,26 @@ var UIModule = function() {
     enterPressed: function() {},
     emptyInput: function() {},
     //test words
-    fillContent: function() {},
+    fillContent: function(array, lineReturn) {
+      var content = array.map(splitArray);
+
+      content = content.map(addSpace);
+
+      content = content.map(addSpanTags);
+
+      content = content.map(addWordSpanTags);
+
+      content = content.map(joinEachWord);
+
+      content = content.join("");
+
+      content = content.split("<span>|</span>").join("<span>&crarr;</span>");
+      //fill content in the browser
+      DOMElements.content.innerHTML = content;
+    },
     formatWord: function(wordObject, wordHtml) {},
     setActiveWord: function(index) {},
     deactivateCurrentWord: function() {},
     scroll: function() {}
   };
-};
+})();

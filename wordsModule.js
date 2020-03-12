@@ -7,7 +7,7 @@ var wordsModule = (function() {
 
   return {
     getWords(textNumber) {
-      returnwords[textNumber];
+      return words[textNumber];
     }
   };
 })();

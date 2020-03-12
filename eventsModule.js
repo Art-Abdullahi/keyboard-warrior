@@ -1,9 +1,4 @@
-var eventsModule = (function(
-  dataModule,
-  UIModule,
-  wordsModule,
-  certificateModule
-) {
+var eventsModule = (function(dModule, uModule, wModule, certificateModule) {
   var addEventListeners = function() {
     //character typing event listener
     //click on download button  event
@@ -13,19 +8,23 @@ var eventsModule = (function(
     //init function,initializies the test before start
     init: function(duration, textNumber) {
       //fill the list of test words:data module
-      var words = wordsModule.getWords(textNumber);
+      var words = wModule.getWords(textNumber);
 
-      dataModule.fillListOfTestWords(textNumber);
+      dModule.fillListOfTestWords(textNumber, words);
       //fill the list of test words: ui module
-
-      //set the total test time
+      var lineReturn = dModule.getLineReturn();
+      var testWords = dModule.getListOfTestWords();
+      uModule.fillContent(testWords, lineReturn);
+      //set the total test time: data module
+      dModule.setTestTime(duration);
 
       //update Time left:data modeule
-
+      dModule.intializeTimeLeft();
       //update time left: ui module
-
+      var timeLeft = dModule.getTimeLeft();
+      uModule.updateTimeLeft(timeLeft);
       //move to a new word: data module
-
+      dModule.moveToNewWord();
       //set active word: ui module
 
       //format the active word:ui module
