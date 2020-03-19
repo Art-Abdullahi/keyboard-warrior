@@ -26,10 +26,13 @@ var eventsModule = (function(dModule, uModule, wModule, certificateModule) {
       //move to a new word: data module
       dModule.moveToNewWord();
       //set active word: ui module
-
+      var index = dModule.getCurrentWordIndex();
+      uModule.setActiveWord(index);
       //format the active word:ui module
-
+      var currentWord = dModule.getCurrentWord();
+      uModule.formatWord(currentWord);
       //focus on text input: ui module
+      uModule.inputFocus();
       addEventListeners();
     }
   };

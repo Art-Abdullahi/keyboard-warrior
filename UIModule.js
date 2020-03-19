@@ -50,7 +50,9 @@ var UIModule = (function() {
     fillModal: function() {},
     showModal: function() {},
     //user Input
-    inputFocus: function() {},
+    inputFocus: function() {
+      DOMElements.textInput.focus();
+    },
     isNameEmpty() {},
     flagNameInput() {},
     spacePressed: function() {},
@@ -74,8 +76,14 @@ var UIModule = (function() {
       //fill content in the browser
       DOMElements.content.innerHTML = content;
     },
-    formatWord: function(wordObject, wordHtml) {},
-    setActiveWord: function(index) {},
+    formatWord: function(wordObject) {
+      var activeWord = DOMElements.activeWord;
+      //highlight current word
+      activeWord.className = "activeWord";
+    },
+    setActiveWord: function(index) {
+      DOMElements.activeWord = DOMElements.content.children[index];
+    },
     deactivateCurrentWord: function() {},
     scroll: function() {}
   };
