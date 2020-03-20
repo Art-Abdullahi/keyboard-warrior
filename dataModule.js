@@ -127,7 +127,9 @@ var dataModule = (function() {
     endTest: function() {}, //ends the test
     reduceTime: function() {}, //reduces the time by one second
     timeLeft: function() {}, //checks if there is time left,
-    testEnded: function() {},
+    testEnded: function() {
+      return appData.indicators.testEnded;
+    },
     testStarted: function() {},
     //results
     calculateWpm: function() {},
@@ -172,7 +174,9 @@ var dataModule = (function() {
         }
       };
     },
-    updateCurrentWord: function(value) {},
+    updateCurrentWord: function(value) {
+      appData.words.currentWord.update(value);
+    },
     returnDAta() {
       console.log(appData);
     },

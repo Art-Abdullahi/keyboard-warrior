@@ -40,7 +40,11 @@ var UIModule = (function() {
   };
   return {
     //get DomElements
-    getDomeElements: function() {},
+    getDomeElements: function() {
+      return {
+        textInput: DOMElements.textInput
+      };
+    },
     //indicators -Test Control
     updateTimeLeft: function(x) {
       DOMElements.timeLeft.innerHTML = x;
@@ -58,6 +62,9 @@ var UIModule = (function() {
     spacePressed: function() {},
     enterPressed: function() {},
     emptyInput: function() {},
+    getTypedWord: function() {
+      return DOMElements.textInput.value;
+    },
     //test words
     fillContent: function(array, lineReturn) {
       var content = array.map(splitArray);
