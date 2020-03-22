@@ -62,6 +62,11 @@ var dataModule = (function() {
       return currentWord + randomPunctuation;
     });
   };
+  //CHARCTER CALL BACK USED TO CALCULATE THE NUMBER OF CORRECT characters inside the current word
+  var nbCorrectChar;
+  var charCallback = function(currentElement, index) {
+    nbCorrectChar += currentElement == this.characters.user[index] ? 1 : 0;
+  };
 
   var appData = {
     indicators: {
@@ -110,7 +115,21 @@ var dataModule = (function() {
   };
 
   //updateMethod
-  word.prototype.update = function(value) {};
+  word.prototype.update = function(value) {
+    //update the user input
+    this.value.user = value;
+    //update the word status(correct or not)
+    this.value.isCorrect = this.value.correct == this.value.user;
+    //update user characters
+    this.characters.user = this.value.user.split("");
+    //calculate the number of correct characters
+    nbCorrectChar = 0;
+
+    var charCallback2 = charCallback.bind(this);
+    this.characters.correct.forEach(charCallback2);
+
+    this.characters.totalCorrect = nbCorrectChar;
+  };
   return {
     //Indicators - Test Control
     setTestTime: function(x) {

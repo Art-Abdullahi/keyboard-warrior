@@ -38,6 +38,14 @@ var UIModule = (function() {
   var joinEachWord = function(array) {
     return array.join("");
   };
+  var userValue;
+  var returnCharClass = function(currentCharacter, index) {
+    return index < userValue.length
+      ? currentCharacter == userValue[index]
+        ? "correctCharacter"
+        : "wrongCharacter"
+      : "0";
+  };
   return {
     //get DomElements
     getDomeElements: function() {
@@ -59,10 +67,15 @@ var UIModule = (function() {
     },
     isNameEmpty() {},
     flagNameInput() {},
-    spacePressed: function() {},
+    spacePressed: function(event) {
+      return event.data == " ";
+    },
     enterPressed: function() {},
-    emptyInput: function() {},
+    emptyInput: function() {
+      DOMElements.textInput.value = "";
+    },
     getTypedWord: function() {
+      console.log(DOMElements.textInput.value);
       return DOMElements.textInput.value;
     },
     //test words
@@ -87,11 +100,34 @@ var UIModule = (function() {
       var activeWord = DOMElements.activeWord;
       //highlight current word
       activeWord.className = "activeWord";
+      //format individual character
+      var correctValue = wordObject.value.correct;
+      userValue = wordObject.value.user;
+
+      var classes = Array.prototype.map.call(correctValue, returnCharClass);
+      //get active word
+      var activeWord = DOMElements.activeWord;
+      //HTML collection
+      var characters = activeWord.children;
+      //add classes to children
+      for (let i = 0; i < characters.length; i++) {
+        characters[i].removeAttribute("class");
+        characters[i].className = classes[i];
+      }
     },
     setActiveWord: function(index) {
       DOMElements.activeWord = DOMElements.content.children[index];
     },
-    deactivateCurrentWord: function() {},
-    scroll: function() {}
+    deactivateCurrentWord: function() {
+      DOMElements.activeWord.removeAttribute("class");
+    },
+    scroll: function() {
+      var activeWord = DOMElements.activeWord;
+      var top1 = activeWord.offsetTop;
+      var top2 = DOMElements.content.offsetTop;
+      var diff = top1 - top2;
+      //scroll the content of the content box
+      DOMElements.content.scrollTop = diff - 40;
+    }
   };
 })();

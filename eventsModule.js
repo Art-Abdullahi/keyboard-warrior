@@ -3,7 +3,7 @@ var eventsModule = (function(dModule, uModule, wModule, certificateModule) {
     //character typing event listener
     uModule
       .getDomeElements()
-      .textInput.addEventListener("keypress", function(event) {
+      .textInput.addEventListener("input", function(event) {
         //if the test ended do nothing
         if (dModule.testEnded()) {
           return;
@@ -17,20 +17,31 @@ var eventsModule = (function(dModule, uModule, wModule, certificateModule) {
         //update current word: data module
         dModule.updateCurrentWord(typedWord);
         //format the active word
-
+        var currentWord = dModule.getCurrentWord();
+        uModule.formatWord(currentWord);
         //check if the user pressed space or enter
-        if (uModule.spacePressed() || uModule.enterPressed()) {
+        if (uModule.spacePressed(event) || uModule.enterPressed()) {
           //empty text input
+          uModule.emptyInput();
           //deactivate current word
+          uModule.deactivateCurrentWord();
           //move to a new word: data module
-          //set active word: UI module
-          //format the active word :UI module
+          dModule.moveToNewWord();
+          //set active word: ui module
+          var index = dModule.getCurrentWordIndex();
+          uModule.setActiveWord(index);
+          //format the active word:ui module
+          var currentWord = dModule.getCurrentWord();
+          uModule.formatWord(currentWord);
           //scroll word into the middle view
+          uModule.scroll();
         }
       });
     //click on download button  event
     //click on restart button event
   };
+  //scroll active word into middle view on window resize
+  window.addEventListener("resize", uModule.scroll);
   return {
     //init function,initializies the test before start
     init: function(duration, textNumber) {
