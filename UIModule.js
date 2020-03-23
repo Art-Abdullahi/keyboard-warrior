@@ -70,7 +70,9 @@ var UIModule = (function() {
     spacePressed: function(event) {
       return event.data == " ";
     },
-    enterPressed: function() {},
+    enterPressed: function(lineReturn) {
+      return DOMElements.textInput.value.includes(lineReturn + " ");
+    },
     emptyInput: function() {
       DOMElements.textInput.value = "";
     },
