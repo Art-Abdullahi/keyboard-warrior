@@ -30,7 +30,36 @@ var eventsModule = (function(dModule, uModule, wModule, certificateModule) {
         }
         //if the test has not started yet, start the test and countdown
         if (!dModule.testStarted()) {
-          //start the test
+          //start the test:data module
+          dModule.startTest();
+          //start counter
+          var b = setInterval(function() {
+            //calculate the results:data Module
+            var results = {};
+            //update wpm,wpmChange
+            [results.wpm, results.wpmChange] = dModule.calculateWpm();
+            //updata cpm,cpmChange
+            //update accuracy,accuracyChange
+
+            dModule.returnDAta();
+            //update results;UI module
+            //update time left
+            //check if we have time left
+            //yes:
+            //reduce time by one second:data Module
+            //update time remaining:UI Module
+            //no:
+            //end test:data Module
+            //fill Modal
+            //show Modal
+
+            if (dModule.timeLeft()) {
+              //reduce time by one second:data Module
+              var timeLeft = dModule.reduceTime();
+              //update time remaining:UI Module
+              uModule.updateTimeLeft(timeLeft);
+            }
+          }, 1000);
         }
         //get typed: UI module
         var typedWord = uModule.getTypedWord();
