@@ -39,8 +39,12 @@ var eventsModule = (function(dModule, uModule, wModule, certificateModule) {
             //update wpm,wpmChange
             [results.wpm, results.wpmChange] = dModule.calculateWpm();
             //updata cpm,cpmChange
+            [results.cpm, results.cpmChange] = dModule.calculateCpm();
             //update accuracy,accuracyChange
-
+            [
+              results.accuracy,
+              results.accuracyChange
+            ] = dModule.calculateAccuracy();
             dModule.returnDAta();
             //update results;UI module
             //update time left

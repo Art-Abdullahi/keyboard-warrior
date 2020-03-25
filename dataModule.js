@@ -177,8 +177,38 @@ var dataModule = (function() {
       appData.results.wpmChange = appData.results.wpm - wpmOld;
       return [appData.results.wpm, appData.results.wpmChange];
     },
-    calculateCpm: function() {},
-    calculateAccuracy: function() {},
+    calculateCpm: function() {
+      var cpmOld = appData.results.cpm;
+      var numOfCorrectCharacters = appData.results.numOfCorrectCharacters;
+      if (appData.indicators.timeLeft != appData.indicators.totalTestTime) {
+        appData.results.cpm = Math.round(
+          (60 * numOfCorrectCharacters) /
+            (appData.indicators.totalTestTime - appData.indicators.timeLeft)
+        );
+      } else {
+        appData.results.cpm = 0;
+      }
+      appData.results.cpmChange = appData.results.cpm - cpmOld;
+      return [appData.results.cpm, appData.results.cpmChange];
+    },
+    calculateAccuracy: function() {
+      var accuracyOld = appData.results.accuracy;
+      var numOfCorrectCharacters = appData.results.numOfCorrectCharacters;
+      var numOfTestCharacters = appData.results.numOfTestCharacters;
+      if (appData.indicators.timeLeft != appData.indicators.totalTestTime) {
+        if (numOfTestCharacters != 0) {
+          appData.results.accuracy = Math.round(
+            (100 * numOfCorrectCharacters) / numOfTestCharacters
+          );
+        } else {
+          appData.results.accuracy = 0;
+        }
+      } else {
+        appData.results.accuracy = 0;
+      }
+      appData.results.accuracyChange = appData.results.accuracy - accuracyOld;
+      return [appData.results.accuracycpm, appData.results.accuracyChange];
+    },
     //fill list with test words
     fillListOfTestWords: function(textNumber, words) {
       var result = words.split(" ");
