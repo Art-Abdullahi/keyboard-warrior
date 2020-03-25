@@ -207,7 +207,7 @@ var dataModule = (function() {
         appData.results.accuracy = 0;
       }
       appData.results.accuracyChange = appData.results.accuracy - accuracyOld;
-      return [appData.results.accuracycpm, appData.results.accuracyChange];
+      return [appData.results.accuracy, appData.results.accuracyChange];
     },
     //fill list with test words
     fillListOfTestWords: function(textNumber, words) {

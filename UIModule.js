@@ -6,7 +6,7 @@ var UIModule = (function() {
     wpm: document.getElementById("wpm"),
     wpmChange: document.getElementById("wpmChange"),
     cpm: document.getElementById("cpm"),
-    cpmChamge: document.getElementById("cpmChange"),
+    cpmChange: document.getElementById("cpmChange"),
     accuracy: document.getElementById("accuracy"),
     accuracyChange: document.getElementById("accuracyChange"),
     //user input
@@ -46,6 +46,29 @@ var UIModule = (function() {
         : "wrongCharacter"
       : "0";
   };
+  var updateChanges = function(value, changeElement) {
+    //determine class to add to the change element and html to insert
+    var classToAdd, html;
+    [classToAdd, html] =
+      value >= 0 ? ["scoreUp", "+" + value] : ["scoreDown", value];
+    //add % to the percantage change
+    if (changeElement == DOMElements.accuracyChange) {
+      html += "%";
+    }
+    //update the change element
+    changeElement.innerHTML = html;
+    //style the change element
+    changeElement.removeAttribute("class");
+    changeElement.className = classToAdd;
+    //fade element
+    fadeElement(changeElement);
+  };
+  var fadeElement = function(element) {
+    element.style.opacity = 1;
+    setTimeout(function() {
+      element.style.opacity = 0.9;
+    }, 100);
+  };
   return {
     //get DomElements
     getDomeElements: function() {
@@ -58,7 +81,18 @@ var UIModule = (function() {
       DOMElements.timeLeft.innerHTML = x;
     },
     //results
-    updateResults: function() {},
+    updateResults: function(results) {
+      //update wpm
+      DOMElements.wpm.innerHTML = results.wpm;
+      //update cpm
+      DOMElements.cpm.innerHTML = results.cpm;
+      //update accuracy
+      DOMElements.accuracy.innerHTML = results.accuracy + "%";
+      //update changes
+      updateChanges(results.wpmChange, DOMElements.wpmChange);
+      updateChanges(results.cpmChange, DOMElements.cpmChange);
+      updateChanges(results.accuracyChange, DOMElements.accuracyChange);
+    },
     fillModal: function() {},
     showModal: function() {},
     //user Input

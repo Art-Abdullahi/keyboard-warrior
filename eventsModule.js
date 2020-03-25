@@ -45,8 +45,9 @@ var eventsModule = (function(dModule, uModule, wModule, certificateModule) {
               results.accuracy,
               results.accuracyChange
             ] = dModule.calculateAccuracy();
-            dModule.returnDAta();
+            //dModule.returnDAta();
             //update results;UI module
+            uModule.updateResults(results);
             //update time left
             //check if we have time left
             //yes:
