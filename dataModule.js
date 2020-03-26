@@ -146,7 +146,10 @@ var dataModule = (function() {
     startTest: function() {
       appData.indicators.testStarted = true;
     },
-    endTest: function() {}, //ends the test
+    //ends the test
+    endTest: function() {
+      appData.indicators.testEnded = true;
+    },
     //reduces the time by one second
     reduceTime: function() {
       appData.indicators.timeLeft--;

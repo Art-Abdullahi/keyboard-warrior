@@ -54,15 +54,21 @@ var eventsModule = (function(dModule, uModule, wModule, certificateModule) {
             //reduce time by one second:data Module
             //update time remaining:UI Module
             //no:
-            //end test:data Module
-            //fill Modal
-            //show Modal
 
             if (dModule.timeLeft()) {
               //reduce time by one second:data Module
               var timeLeft = dModule.reduceTime();
               //update time remaining:UI Module
               uModule.updateTimeLeft(timeLeft);
+            } else {
+              //end test:data Module
+              clearInterval(b);
+              dModule.endTest();
+
+              //fill Modal
+              uModule.fillModal(results.wpm);
+              //show Modal
+              uModule.showModal();
             }
           }, 1000);
         }
