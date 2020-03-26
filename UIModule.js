@@ -16,7 +16,9 @@ var UIModule = (function() {
     content: document.getElementById("content"),
     activeWord: "",
     //modal
-    modal: $("#myModal")
+    modal: $("#myModal"),
+    download: document.getElementById("download"),
+    nameField: document.getElementById("name")
   };
   var splitArray = function(string) {
     return string.split("");
@@ -73,7 +75,8 @@ var UIModule = (function() {
     //get DomElements
     getDomeElements: function() {
       return {
-        textInput: DOMElements.textInput
+        textInput: DOMElements.textInput,
+        download: DOMElements.download
       };
     },
     //indicators -Test Control
@@ -94,8 +97,36 @@ var UIModule = (function() {
       updateChanges(results.accuracyChange, DOMElements.accuracyChange);
     },
     fillModal: function(wpm) {
+      var results;
+      if (wpm < 40) {
+        results = {
+          type: "turtle",
+          image: "turtle.jpg",
+          level: "Beginner"
+        };
+      } else if (wpm < 70) {
+        results = {
+          type: "Horse",
+          image: "horse.jpg",
+          level: "Average"
+        };
+      } else {
+        results = {
+          type: "Puma",
+          image: "puma.jpg",
+          level: "Expert"
+        };
+      }
       var html =
-        '<div><p>You are a %type%!</p><p>You type at a speed of %wpm% words per minute</p><img src="img/%image%"></div>';
+        '<div class="result"><p>You are a %type%!</p><p>You type at a speed of %wpm% words per minute</p><img width="300" height="200" class="rounded-circle" src="img/%image%"></div>';
+      html = html.replace("%image%", results.image);
+      html = html.replace("%type%", results.type);
+      html = html.replace("%wpm%", wpm);
+
+      //insert content
+      DOMElements.nameInput.insertAdjacentHTML("beforebegin", html);
+      //store level in the download buttton
+      DOMElements.download.setAttribute("level", results.level);
     },
     showModal: function() {
       DOMElements.modal.modal("show");
@@ -104,8 +135,12 @@ var UIModule = (function() {
     inputFocus: function() {
       DOMElements.textInput.focus();
     },
-    isNameEmpty() {},
-    flagNameInput() {},
+    isNameEmpty() {
+      return DOMElements.nameField.value == "";
+    },
+    flagNameInput() {
+      DOMElements.nameField.style.borderColor = "red";
+    },
     spacePressed: function(event) {
       return event.data == " ";
     },

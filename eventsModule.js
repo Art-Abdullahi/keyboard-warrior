@@ -101,6 +101,16 @@ var eventsModule = (function(dModule, uModule, wModule, certificateModule) {
         }
       });
     //click on download button  event
+    uModule
+      .getDomeElements()
+      .download.addEventListener("click", function(event) {
+        if (uModule.isNameEmpty()) {
+          uModule.flagNameInput();
+        } else {
+          var certificateDAta = dModule.getCertificateDAta();
+          certificateModule.generateCertificate(certificateDAta);
+        }
+      });
     //click on restart button event
   };
   //scroll active word into middle view on window resize

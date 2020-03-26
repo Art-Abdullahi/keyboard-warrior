@@ -266,6 +266,12 @@ var dataModule = (function() {
     },
     getLineReturn() {
       return lineReturn;
+    },
+    getCertificateDAta() {
+      return {
+        wpm: appData.indicators.wpm,
+        accuracy: appData.indicators.accuracy
+      };
     }
   };
 })();
