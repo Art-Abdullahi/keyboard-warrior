@@ -4,7 +4,6 @@ var eventsModule = (function(dModule, uModule, wModule, certificateModule) {
     uModule
       .getDomeElements()
       .textInput.addEventListener("keydown", function(event) {
-        console.log(event);
         //if the test ended do nothing
         if (dModule.testEnded()) {
           return;

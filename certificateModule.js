@@ -20,10 +20,14 @@ var certificateModule = (function() {
 
       doc.text(105, 83, "This Certificate is Hereby Awarded to:", "center");
       //add name
+      var button = event.target;
+      var nameField =
+        button.parentElement.previousElementSibling.children[1].children[1];
+      var name = nameField.value;
       doc.setTextColor(29, 210, 242);
       doc.setFontSize(19);
 
-      doc.text(105, 90, "Name", "center");
+      doc.text(105, 90, name, "center");
       //add text
       doc.setTextColor(96, 96, 96);
       doc.setFontSize(14);
@@ -36,11 +40,14 @@ var certificateModule = (function() {
       );
       doc.text(105, 107, "and verified by Trident Solutions", "center");
       //add results
-      doc.text(105, 117, "Level:Expert", "center");
-      doc.text(105, 124, "Speed: 84 wpm", "center");
-      doc.text(105, 131, "Accuracy: 100%", "center");
+      var level = event.target.getAttribute("level");
+      doc.text(105, 117, "Level:" + level, "center");
+      doc.text(105, 124, "Speed: " + data.wpm + " wpm", "center");
+      doc.text(105, 131, "Accuracy: " + data.accuracy + " accuracy", "center");
       //add date
-      doc.text(125, 142, "Awarded on: 10/31/1995");
+      var date = new Date();
+      date = date.toLocaleDateString("en-US");
+      doc.text(125, 142, "Awarded on: " + date);
       doc.text(125, 150, "Trident Solutions");
       doc.save("certificate.pdf");
     }
